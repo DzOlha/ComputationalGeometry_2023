@@ -33,8 +33,9 @@ class MainWindow:
 
 
     def onClickCalculate(self):
+        self.w.delete("lines")
         if not self.LOCK_FLAG:
-            self.LOCK_FLAG = True
+            self.LOCK_FLAG = False
 
             pObj = self.w.find_all()
             points = []
@@ -55,11 +56,12 @@ class MainWindow:
 
     def onDoubleClick(self, event):
         if not self.LOCK_FLAG:
+            self.w.delete("lines")
             self.w.create_oval(event.x-self.RADIUS, event.y-self.RADIUS, event.x+self.RADIUS, event.y+self.RADIUS, fill="black")
 
     def drawLinesOnCanvas(self, lines):
         for l in lines:
-            self.w.create_line(l[0], l[1], l[2], l[3], fill='blue')
+            self.w.create_line(l[0], l[1], l[2], l[3], fill='blue', tags='lines')
 
 def main():
     root = tk.Tk()
