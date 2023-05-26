@@ -272,5 +272,5 @@ def point_localization(graph, tree, point, visualize=False):
             else:
                 d = "top"
                 node = node.right
-        path.append({"data": data, "dir": d})
+        path.append({"data": data, "direction": d})
     return path
