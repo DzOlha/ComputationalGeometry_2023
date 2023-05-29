@@ -16,27 +16,6 @@ class TreeNode:
         self.point = None
         self.line_dim = None
 
-
-def _show_plot(points, x_range, y_range):
-    fig, ax = plt.subplots(num="Visualization")
-
-    w = x_range[1] - x_range[0]
-    h = y_range[1] - y_range[0]
-    rect = patches.Rectangle((x_range[0], y_range[0]), w, h)
-    ax.add_patch(rect)
-
-    x, y = zip(*points)
-    plt.scatter(x, y, color="blue")
-
-    labels = list(range(len(points)))
-    for i, txt in enumerate(labels):
-        ax.annotate(txt, (x[i], y[i]), xytext=(x[i]+0.1, y[i]+0.1))
-
-    plt.axis("on")
-    plt.ion()
-    plt.show()
-
-
 def _sorted_list_split(left_list, right_list, to_split_list):
     if not to_split_list:
         return [], []
@@ -99,12 +78,11 @@ def _range_search(node, x_range, y_range, res):
         _range_search(node.right, x_range, y_range, res)
 
 
-def range_search(tree, x_range, y_range, visualize_points=None):
-    if visualize_points is not None:
-        _show_plot(visualize_points, x_range, y_range)
+def range_search(tree, x_range, y_range):
     res = []
     _range_search(tree, x_range, y_range, res)
     return res
+
 
 def read_points(filename):
     points = []
@@ -126,10 +104,10 @@ def read_region(filename):
         y = [float(y1), float(y2)]
         return x, y
 
+
 def init():
     points = read_points("points.txt")
     x_region, y_region = read_region("regions.txt")
-    #points = sorted(points, key=lambda p: p.x)
 
     fig, ax = plt.subplots(2)
     ax[0].set_xlim([0, 9])
